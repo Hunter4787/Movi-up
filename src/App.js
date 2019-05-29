@@ -34,28 +34,28 @@ class App extends React.Component {
     super(props)
       this.state={
    news:movieListe ,
-   filtred:movieListe
+   filtred:movieListe,
+   finalfilter:movieListe
    
    
       }
     }
   search(keyword){
-    let filter1=this.state.news.filter((el,i)=>{return el.title.toLowerCase().indexOf(keyword)>-1})
-    this.setState({filtred:filter1})
+    let filter1=this.state.finalfilter.filter((el,i)=>{return el.title.toLowerCase().indexOf(keyword.toLowerCase())>-1})
+    this.setState({filtred:filter1, finalfilter:filter1})
     
   }
   ratesearch = (keyrate)=>{
-    let filter2=this.state.news.filter((el,i)=>{return el.rating.indexOf(keyrate)>-1} )
-    this.setState({filtred:filter2})
+    let filter1=this.state.filtred.filter((el,i)=>{return el.rating.indexOf(keyrate)>-1} )
+    this.setState({finalfilter:filter1})
    
   }
   
-  // this.setState({mixfilter: this.state.filtred.concat(this.state.ratefilter)})
  render(){ 
    return (
     <div>
       <Header searchname={(keyword)=>this.search(keyword)} searchrate={(keyword)=>this.ratesearch(keyword)}/>
-      <MoviListe liste={this.state.filtred}/>
+      <MoviListe liste={this.state.finalfilter}/>
     </div>
   );}
 }
