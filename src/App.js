@@ -5,59 +5,76 @@ import './App.css';
 /*component*/
 import Header from './header'
 import MoviListe from './mainliste'
+import Stars from './stars'
 
 
 const movieListe = [
   {
-    rating:" 3",
-    tof:require("./guan yu.jpg"),
+    rating: 3,
+    tof: require("./guan yu.jpg"),
     title: "Guan yu & CaoCao"
   },
   {
-    rating: "4",
-    tof:require("./300poster.jpg"),
+    rating: 4,
+    tof: require("./300poster.jpg"),
     title: "guuuul 300!"
   },
   {
-    rating: "3",
-    tof:require("./The_Maze.jpg"),
+    rating: 2,
+    tof: require("./Prince_of_Persia.jpg"),
+    title: "Prince_of_Persia"
+  },
+  {
+    rating: 1,
+    tof: require("./TMNT.jpg"),
+    title: "TMNT"
+  },
+  {
+    rating: 3,
+    tof: require("./The_Maze.jpg"),
     title: "The Maze Runner "
   },
   {
-    rating: "5",
-    tof:require("./The_Maze.jpg"),
+    rating: 5,
+    tof: require("./The_Maze.jpg"),
     title: "The Maze Runner "
   }
 ]
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
-      this.state={
-   news:movieListe ,
-   filtred:movieListe,
-   finalfilter:movieListe
-   
-   
-      }
+    this.state = {
+      filtred: movieListe,
+      rating: 1,
+      title: ""
     }
-  search(keyword){
-    let filter1=this.state.finalfilter.filter((el,i)=>{return el.title.toLowerCase().indexOf(keyword.toLowerCase())>-1})
-    this.setState({filtred:filter1, finalfilter:filter1})
-    
   }
-  ratesearch = (keyrate)=>{
-    let filter1=this.state.filtred.filter((el,i)=>{return el.rating.indexOf(keyrate)>-1} )
-    this.setState({finalfilter:filter1})
-   
-  }
+  search = (keyword) => {
+    this.setState({ title: keyword })
+      this.setState({ filtred: movieListe.filter((el, i) => {
+        return (el.title.toLowerCase().indexOf(keyword.toLowerCase()) > -1) && (el.rating>=this.state.rating)})
+    })
+   }
+ 
+  ratesearch = (k) => {
+        this.setState({ rating: k })
+        this.setState({ filtred: movieListe.filter((el, i) => {
+          return (el.rating>=k) && (el.title.toLowerCase().indexOf(this.state.title)>-1)})
+      })
+ }
+  defaultRates = () => {
+    this.setState({ rating: 0, filtred:movieListe})
+}
   
- render(){ 
-   return (
+ render(){
+        return(
     <div>
-      <Header searchname={(keyword)=>this.search(keyword)} searchrate={(keyword)=>this.ratesearch(keyword)}/>
-      <MoviListe liste={this.state.finalfilter}/>
-    </div>
-  );}
+      <Header searchname={(keyword) => this.search(keyword)} default={() => this.defaultRates()}/>
+      <Stars searchrate={(y) => this.ratesearch(y)} liste={movieListe} />
+      <MoviListe liste={this.state.filtred} />
+    </div >
+  );
+  }
 }
 
 export default App;

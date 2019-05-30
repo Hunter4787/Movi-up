@@ -11,8 +11,6 @@ class AddMv extends Component {
         return (
             <div className="col-lg-4 col-md-6 col-sm-12 add-mrgn">
                 <a href="#"> <img src={require('./plus.jpg')} alt="ajouter un element" /></a>
-            
-            
                 </div>)
     }
 }

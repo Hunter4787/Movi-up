@@ -9,10 +9,10 @@ class MoviListe extends Component {
         
     }
     render() {
-        let lst= this.props.liste
+        const{liste}= this.props
         return (<div className="container">
             <CardGroup className="row">
-            {lst.map((el, i) => <MvCard  movie={el} key={i}/>) }
+            {liste.map((el, i) => <MvCard  movie={el} key={i}/>) }
             <AddMv />
             </CardGroup>
 
