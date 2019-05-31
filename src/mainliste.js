@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import { CardGroup} from "react-bootstrap";
+import { CardGroup } from "react-bootstrap";
 import MvCard from './moviecard'
-import AddMv from './add'
+import Add from './add'
 
 class MoviListe extends Component {
-    constructor(props) {
-        super(props);
-        
+    newMovie = (r, tof, title) => {
+        this.props.newMovie(r, tof, title)
     }
     render() {
-        const{liste}= this.props
+        const { liste } = this.props
         return (<div className="container">
             <CardGroup className="row">
-            {liste.map((el, i) => <MvCard  movie={el} key={i}/>) }
-            <AddMv />
+                {liste.map((el, i) => <MvCard movie={el} key={i} />)}
+                <Add newMovie={this.newMovie} />
             </CardGroup>
 
         </div>);

@@ -28,3 +28,10 @@ align-items: center;
   display: flex;
   flex-wrap: wrap;
 }
+
+.modal-style{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

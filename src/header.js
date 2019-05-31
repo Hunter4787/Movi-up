@@ -8,15 +8,13 @@ class Header extends Component {
         this.state = {
             keyword: ""
         }
-    
- }
+
+    }
     handelchange = (event) => {
-        this.setState({ keyword: event.target.value },()=>this.props.searchname(this.state.keyword))
+        this.setState({ keyword: event.target.value }, () => this.props.searchname(this.state.keyword))
     }
 
     render() {
-        const { rating } = this.state;
-
         return (<div className="header-style container">
             <div className="row">
                 <InputGroup className="search-bar">
@@ -33,7 +31,7 @@ class Header extends Component {
                     </InputGroup.Append>
                 </InputGroup>
             </div>
-            
+
         </div>);
     }
 }

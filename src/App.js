@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-
 
 /*component*/
 import Header from './header'
 import MoviListe from './mainliste'
 import Stars from './stars'
-
 
 const movieListe = [
   {
@@ -51,29 +49,38 @@ class App extends React.Component {
   }
   search = (keyword) => {
     this.setState({ title: keyword })
-      this.setState({ filtred: movieListe.filter((el, i) => {
-        return (el.title.toLowerCase().indexOf(keyword.toLowerCase()) > -1) && (el.rating>=this.state.rating)})
-    })
-   }
- 
-  ratesearch = (k) => {
-        this.setState({ rating: k })
-        this.setState({ filtred: movieListe.filter((el, i) => {
-          return (el.rating>=k) && (el.title.toLowerCase().indexOf(this.state.title)>-1)})
+    this.setState({
+      filtred: movieListe.filter((el, i) => {
+        return (el.title.toLowerCase().indexOf(keyword.toLowerCase()) > -1) && (el.rating >= this.state.rating)
       })
- }
+    })
+  }
+
+  ratesearch = (k) => {
+    this.setState({ rating: k })
+    this.setState({
+      filtred: movieListe.filter((el, i) => {
+        return (el.rating >= k) && (el.title.toLowerCase().indexOf(this.state.title) > -1)
+      })
+    })
+  }
   defaultRates = () => {
-    this.setState({ rating: 0, filtred:movieListe})
-}
-  
- render(){
-        return(
-    <div>
-      <Header searchname={(keyword) => this.search(keyword)} default={() => this.defaultRates()}/>
-      <Stars searchrate={(y) => this.ratesearch(y)} liste={movieListe} />
-      <MoviListe liste={this.state.filtred} />
-    </div >
-  );
+    this.setState({ rating: 0, filtred: movieListe })
+  }
+
+  newMovie = (r, tof, title) => {
+    // this.setState({ filtred: [...this.state.filtred,{ rating: r, tof: tof, title: title }] })
+    this.setState({ filtred: this.state.filtred.concat([{ rating: r, tof: tof, title: title }])})
+
+  }
+  render() {
+    return (
+      <div>
+        <Header searchname={(keyword) => this.search(keyword)} default={() => this.defaultRates()} />
+        <Stars searchrate={(y) => this.ratesearch(y)} liste={movieListe} />
+        <MoviListe liste={this.state.filtred} newMovie={this.newMovie} />
+      </div >
+    );
   }
 }
 
