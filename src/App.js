@@ -44,7 +44,9 @@ class App extends React.Component {
     this.state = {
       filtred: movieListe,
       rating: 1,
-      title: ""
+      title: "",
+      isLoading:true
+
     }
   }
   search = (keyword) => {
@@ -73,12 +75,15 @@ class App extends React.Component {
     this.setState({ filtred: this.state.filtred.concat([{ rating: r, tof: tof, title: title }])})
 
   }
+  componentDidMount(){
+    setTimeout(()=>this.setState({isLoading:false}), 3000);
+  }
   render() {
     return (
       <div>
         <Header searchname={(keyword) => this.search(keyword)} default={() => this.defaultRates()} />
         <Stars searchrate={(y) => this.ratesearch(y)} liste={movieListe} />
-        <MoviListe liste={this.state.filtred} newMovie={this.newMovie} />
+        <MoviListe liste={this.state.filtred} newMovie={this.newMovie} isLoading={this.state.isLoading}/>
       </div >
     );
   }

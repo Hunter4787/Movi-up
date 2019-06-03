@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CardGroup } from "react-bootstrap";
 import MvCard from './moviecard'
 import Add from './add'
+import WithLoading from './withloading'
 
 class MoviListe extends Component {
     newMovie = (r, tof, title) => {
@@ -19,4 +20,4 @@ class MoviListe extends Component {
     }
 }
 
-export default MoviListe;
+export default WithLoading(MoviListe);
